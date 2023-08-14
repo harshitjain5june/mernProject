@@ -20,6 +20,9 @@ const mongoDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(mongoURI);
         console.log("connected");
+        const fetchedData = yield mongoose_1.default.connection.db.collection("food_items");
+        const data = yield fetchedData.find({}).toArray();
+        console.log(data);
     }
     catch (error) {
         console.error(error);

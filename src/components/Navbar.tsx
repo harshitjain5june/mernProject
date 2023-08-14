@@ -1,6 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import SignUp from './signUp'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 function Navbar() {
+  const history = useNavigate();
+  const [showSignUp, setShowSignUp] = useState(false)
+  const handleCloseSignUp = () => {
+    setShowSignUp(false);
+    history('/')
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -16,18 +25,12 @@ function Navbar() {
             <li className="nav-item">
               <Link to={'/login'} className="nav-link" >Login</Link>
             </li>
-            <li className="nav-item dropdown">
-              <Link to={'/'} className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </Link>
-
+            <li className="nav-item">
+              <Link to={'/signup'} className="nav-link" onClick={() => {setShowSignUp(true)}} >SignUp</Link>
+              {showSignUp && <SignUp onClose={handleCloseSignUp} />}
             </li>
-
           </ul>
-          <form className="d-flex">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </form>
+
         </div>
       </div>
     </nav>

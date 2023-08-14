@@ -6,8 +6,11 @@ const mongoURI = `mongodb+srv://harshitjain5june:${process.env.password}@cluster
 
 const mongoDB = async () => {
     try {
-       await mongoose.connect(mongoURI);
-       console.log("connected")
+        await mongoose.connect(mongoURI);
+        console.log("connected");
+        const fetchedData = await mongoose.connection.db.collection("food_items");
+        const data = await fetchedData.find({}).toArray();
+        console.log(data[3].name)
     }
     catch (error) {
         console.error(error);
