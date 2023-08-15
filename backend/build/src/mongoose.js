@@ -22,7 +22,7 @@ const mongoDB = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log("connected");
         const fetchedData = yield mongoose_1.default.connection.db.collection("food_items");
         const data = yield fetchedData.find({}).toArray();
-        console.log(data);
+        console.log(data[3].name);
     }
     catch (error) {
         console.error(error);

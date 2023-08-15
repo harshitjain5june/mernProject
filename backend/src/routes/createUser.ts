@@ -3,7 +3,7 @@ import { userSchema } from '../../models/users';
 import { body, validationResult } from 'express-validator'
 const router = express.Router();
 
-router.post('/createuser', body('name').isAlpha(), body('password').isLength({ min: 5 }), async (req, res) => {
+router.post('/createuser', body('email').isEmail(), body('password').isLength({ min: 5 }), async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

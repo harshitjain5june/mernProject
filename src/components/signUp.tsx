@@ -2,32 +2,103 @@ import React from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
+import { Link } from 'react-router-dom'
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import '../styles/signup.css'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 interface SignUpProps {
     onClose: () => void
 }
 
 const SignUp: React.FC<SignUpProps> = ({ onClose }) => {
-    const history = useNavigate();
-    const [open, setOpen] = useState(true);
+
+    const [formData, setFormData] = useState({ name: "", email: "", password: "", location: "" })
+    const open = true;
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const [showFailAlert, setShowFailAlert] = useState(false);
+
+    const setData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    const closeAlerts = () => {
+        setShowFailAlert(false);
+        setShowSuccessAlert(false);
+    };
+
+    const submitDetails = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setTimeout(() => {
+            onClose();
+        }, 2000)
+        console.log(formData);
+        const response = await fetch('http://localhost:8090/api/createuser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        if (response.status >= 200 && response.status < 400) {
+            console.log(response.status);
+            setShowSuccessAlert(true);
+        }
+        else {
+            console.log(response.status);
+            setShowFailAlert(true);
+        }
+    }
+
+
     return (
-        <div>
-            <Dialog open={open} onClose={onClose}>
-                <DialogTitle>Sign Up</DialogTitle>
+        <div className='signup'>
+            <Dialog PaperProps={{ style: { backgroundColor: '#0F1924' } }} maxWidth='sm' fullWidth={true} open={open} onClose={onClose}>
+                <DialogTitle><h4 style={{ color: 'white', fontFamily: 'BricolageGrotesque' }}>Sign Up</h4></DialogTitle>
                 <DialogContent>
-                    <input type='email' placeholder="Enter Email"></input>
-                    <input type='password' placeholder="Set password"></input>
-                    <input type='text' placeholder="Enter location"></input>
+                    <div >
+                        <form className="signupForm" onSubmit={submitDetails}>
+                            <label htmlFor="name">Name</label>
+                            <input required={true} type='text' name='name' value={formData.name} onChange={(e) => setData(e)} placeholder="Enter FullName"></input>
+                            <label htmlFor="email">Email</label>
+                            <input required={true} type='email' name='email' onChange={(e) => setData(e)} placeholder="Enter Email"></input>
+                            <label htmlFor="password">Password</label>
+                            <input required={true} type='password' name='password' onChange={(e) => setData(e)} placeholder="Set password"></input>
+                            <label htmlFor="location">Location</label>
+                            <input required={true} type='text' name='location' onChange={(e) => setData(e)} placeholder="Enter location"></input>
+                            <div>
+                                <Link to='/login' onClick={onClose}>Already a user?</Link>
+                            </div>
+                            <DialogActions>
+                                <Button className='cancel-btn' style={{ color: 'white' }} onClick={onClose}>Cancel</Button>
+                                <Button type='submit' className='Submit-btn' style={{ backgroundColor: 'green', color: 'white' }}>SignUp</Button>
+                            </DialogActions>
+                        </form>
+                    </div>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onClose}>SignUp</Button>
-                </DialogActions>
             </Dialog>
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={showSuccessAlert} onClose={closeAlerts} autoHideDuration={4000} >
+                <Alert severity="success" sx={{ width: '100%' }}>
+                    Your Account is created!!
+                </Alert>
+            </Snackbar>
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={showFailAlert} onClose={closeAlerts} autoHideDuration={6000}>
+                <Alert severity="error" sx={{ width: '100%' }}>
+                    Something went wrong. Please try again later.
+                </Alert>
+            </Snackbar>
         </div>
     )
 }
