@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
-import '../styles/signup.css'
+import '../styles/user.css'
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
@@ -19,10 +19,10 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 interface SignUpProps {
     onClose: () => void
-    onOpen: () => void
+    onOpenLogin: () => void
 }
 
-const SignUp: React.FC<SignUpProps> = ({ onClose, onOpen }) => {
+const SignUp: React.FC<SignUpProps> = ({ onClose, onOpenLogin }) => {
 
     const [formData, setFormData] = useState({ name: "", email: "", password: "", location: "" })
     const open = true;
@@ -54,23 +54,23 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onOpen }) => {
             setTimeout(() => {
                 onClose();
             }, 1000)
-            console.log(response.status);
+            console.log(response);
             setShowSuccessAlert(true);
         }
         else {
-            console.log(response.status);
+            console.log(response);
             setShowFailAlert(true);
         }
     }
 
 
     return (
-        <div className='signup'>
+        <div className='dialog-user-details'>
             <Dialog PaperProps={{ style: { backgroundColor: '#0F1924' } }} maxWidth='sm' fullWidth={true} open={open} onClose={onClose}>
                 <DialogTitle><h4 style={{ color: 'white', fontFamily: 'BricolageGrotesque' }}>Sign Up</h4></DialogTitle>
                 <DialogContent>
                     <div >
-                        <form className="signupForm" onSubmit={submitDetails}>
+                        <form className="userForm" onSubmit={submitDetails}>
                             <label htmlFor="name">Name</label>
                             <input required={true} type='text' name='name' value={formData.name} onChange={(e) => setData(e)} placeholder="Enter FullName"></input>
                             <label htmlFor="email">Email</label>
@@ -80,7 +80,7 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onOpen }) => {
                             <label htmlFor="location">Location</label>
                             <input required={true} type='text' name='location' onChange={(e) => setData(e)} placeholder="Enter location"></input>
                             <div>
-                                <Link to='/login' onClick={()=>{onClose(); onOpen()}}>Already a user?</Link>
+                                <Link to='/login' onClick={()=>{onClose(); onOpenLogin()}}>Already a user?</Link>
                             </div>
                             <DialogActions>
                                 <Button className='cancel-btn' style={{ color: 'white' }} onClick={onClose}>Cancel</Button>
@@ -91,12 +91,12 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onOpen }) => {
                 </DialogContent>
             </Dialog>
             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                open={showSuccessAlert} onClose={closeAlerts} autoHideDuration={4000} >
+                open={showSuccessAlert} onClose={closeAlerts} autoHideDuration={3000} >
                 <Alert severity="success" sx={{ width: '100%' }}>
                     Your Account is created!!
                 </Alert>
             </Snackbar>
-            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={showFailAlert} onClose={closeAlerts} autoHideDuration={6000}>
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={showFailAlert} onClose={closeAlerts} autoHideDuration={3000}>
                 <Alert severity="error" sx={{ width: '100%' }}>
                     Something went wrong. Please try again later.
                 </Alert>

@@ -21,6 +21,10 @@ function Navbar() {
     setShowLogin(true);
   }
 
+  const handleShowSignup = () =>{
+    setShowSignUp(true);
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -35,11 +39,11 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link to={'/login'} className="nav-link" onClick={() => {setShowLogin(true)}}>Login</Link>
-              {showLogin && <Login onClose={handleCloseLogin} />}
+              {showLogin && <Login onOpenSignUp={handleShowSignup} onClose={handleCloseLogin} />}
             </li>
             <li className="nav-item">
               <Link to={'/signup'} className="nav-link" onClick={() => {setShowSignUp(true)}}>SignUp</Link>
-              {showSignUp && <SignUp onOpen={handleShowLogin}  onClose={handleCloseSignUp} />}
+              {showSignUp && <SignUp onOpenLogin={handleShowLogin}  onClose={handleCloseSignUp} />}
             </li>
           </ul>
 
