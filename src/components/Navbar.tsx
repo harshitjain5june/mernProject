@@ -1,15 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import SignUp from './signUp'
+import Login from './Login'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 function Navbar() {
   const history = useNavigate();
-  const [showSignUp, setShowSignUp] = useState(false)
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const handleCloseLogin = () => {
+    setShowLogin(false);
+    history('/');
+  }
   const handleCloseSignUp = () => {
     setShowSignUp(false);
-    history('/')
+    history('/');
   }
+
+  const handleShowLogin = () =>{
+    setShowLogin(true);
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -23,11 +34,12 @@ function Navbar() {
               <Link to={'/'} className="nav-link active" aria-current="page" >Home</Link>
             </li>
             <li className="nav-item">
-              <Link to={'/login'} className="nav-link" >Login</Link>
+              <Link to={'/login'} className="nav-link" onClick={() => {setShowLogin(true)}}>Login</Link>
+              {showLogin && <Login onClose={handleCloseLogin} />}
             </li>
             <li className="nav-item">
-              <Link to={'/signup'} className="nav-link" onClick={() => {setShowSignUp(true)}} >SignUp</Link>
-              {showSignUp && <SignUp onClose={handleCloseSignUp} />}
+              <Link to={'/signup'} className="nav-link" onClick={() => {setShowSignUp(true)}}>SignUp</Link>
+              {showSignUp && <SignUp onOpen={handleShowLogin}  onClose={handleCloseSignUp} />}
             </li>
           </ul>
 

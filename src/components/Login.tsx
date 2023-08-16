@@ -17,12 +17,11 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-interface SignUpProps {
+interface LoginProps {
     onClose: () => void
-    onOpen: () => void
 }
 
-const SignUp: React.FC<SignUpProps> = ({ onClose, onOpen }) => {
+const Login: React.FC<LoginProps> = ({ onClose }) => {
 
     const [formData, setFormData] = useState({ name: "", email: "", password: "", location: "" })
     const open = true;
@@ -80,7 +79,7 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onOpen }) => {
                             <label htmlFor="location">Location</label>
                             <input required={true} type='text' name='location' onChange={(e) => setData(e)} placeholder="Enter location"></input>
                             <div>
-                                <Link to='/login' onClick={()=>{onClose(); onOpen()}}>Already a user?</Link>
+                                <Link to='/login' onClick={onClose}>Already a user?</Link>
                             </div>
                             <DialogActions>
                                 <Button className='cancel-btn' style={{ color: 'white' }} onClick={onClose}>Cancel</Button>
@@ -105,4 +104,4 @@ const SignUp: React.FC<SignUpProps> = ({ onClose, onOpen }) => {
     )
 }
 
-export default SignUp
+export default Login
