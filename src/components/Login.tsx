@@ -50,7 +50,10 @@ const Login: React.FC<LoginProps> = ({ onClose, onOpenSignUp }) => {
             },
             body: JSON.stringify(formData)
         });
+        const json = await response.json()
         if (response.status >= 200 && response.status < 400) {
+            console.log("auth",json.authToken);
+            localStorage.setItem("authToken", json.authToken)
             setTimeout(() => {
                 onClose();
             }, 1000)
