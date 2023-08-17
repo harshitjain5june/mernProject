@@ -23,6 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use(express.json());
 
 app.use('/api', require('./routes/createUser'))
+app.use('/api', require('./routes/displayFoodItems'))
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
