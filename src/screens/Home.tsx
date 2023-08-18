@@ -3,7 +3,8 @@ import Navbar from '../components/Navbar'
 import Card from '../components/Card'
 import Footer from '../components/Footer'
 import Carousel from '../components/Carousel'
-import { dividerClasses } from '@mui/material'
+import '../styles/home.css'
+
 function Home() {
 
   const [foodItems, setFoodItems] = useState(Array<Object>);
@@ -37,15 +38,23 @@ function Home() {
     <>
       <div><Navbar /></div>
       <div><Carousel /></div>
-      <div>
+      <div className='container menu'>
         {foodCategory?.map((item: any) => (
           <>
             {console.log(item)}
-            <div key={item._id}>{item.CategoryName}</div>
+            <div className='fs-4 font-weight-bold' key={item._id}>{item.CategoryName}
+              {foodItems.filter((foodData: any) => foodData.CategoryName === item.CategoryName).map((subItem: any) => (
+                <Card key={subItem._id}
+                  title={subItem.name}
+                  description={subItem.description}
+                  options={subItem.options[0]}
+                  img={subItem.img} />
+              ))}
+            </div>
           </>
         ))}
       </div>
-      <div><Card /></div>
+      <div></div>
       <div><Footer /></div>
     </>
 
