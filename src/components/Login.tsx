@@ -43,7 +43,7 @@ const Login: React.FC<LoginProps> = ({ onClose, onOpenSignUp }) => {
         e.preventDefault();
 
         console.log(formData);
-        const response = await fetch('http://localhost:8090/api/login', {
+        const response = await fetch('https://gofoodbackend-hml3.onrender.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

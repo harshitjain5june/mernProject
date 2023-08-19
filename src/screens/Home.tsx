@@ -7,11 +7,11 @@ import '../styles/home.css'
 
 function Home() {
 
-  const [foodItems, setFoodItems] = useState(Array<Object>);
-  const [foodCategory, setFoodCategory] = useState(Array<Object>);
+  const [foodItems, setFoodItems] = useState<Array<Object>>([]);
+  const [foodCategory, setFoodCategory] = useState<Array<Object>>([]);
 
   const fetchData = async () => {
-    const response = await fetch('http://localhost:8090/api/displayFoodItems', {
+    const response = await fetch('https://gofoodbackend-hml3.onrender.com/api/displayFoodItems', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
