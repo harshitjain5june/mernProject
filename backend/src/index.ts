@@ -10,7 +10,7 @@ const app: Express = express();
 const port = process.env.PORT;
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from this origin
+  origin: 'https://mern-project-pied.vercel.app', // Allow requests from this origin
   methods: ['GET', 'POST', 'OPTIONS'], // Specify allowed methods
   optionsSuccessStatus: 204
 }));
