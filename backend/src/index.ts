@@ -10,7 +10,7 @@ const app: Express = express();
 const port = process.env.PORT;
 
 app.use(cors({
-  origin: 'https://mern-project-pied.vercel.app', // Allow requests from this origin
+  origin: `${process.env.BASE_URL}`, // Allow requests from this origin
   methods: ['GET', 'POST', 'OPTIONS'], // Specify allowed methods
   optionsSuccessStatus: 204
 }));

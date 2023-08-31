@@ -11,7 +11,7 @@ function Home() {
   const [foodCategory, setFoodCategory] = useState<Array<Object>>([]);
 
   const fetchData = async () => {
-    const response = await fetch('https://gofoodbackend-hml3.onrender.com/api/displayFoodItems', {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/displayFoodItems`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -38,18 +38,20 @@ function Home() {
     <>
       <div><Navbar /></div>
       <div><Carousel /></div>
-      <div className='container menu'>
+      <div className='container'>
         {foodCategory?.map((item: any) => (
           <>
             {console.log(item)}
             <div className='fs-4 font-weight-bold' key={item._id}>{item.CategoryName}
-              {foodItems.filter((foodData: any) => foodData.CategoryName === item.CategoryName).map((subItem: any) => (
-                <Card key={subItem._id}
-                  title={subItem.name}
-                  description={subItem.description}
-                  options={subItem.options[0]}
-                  img={subItem.img} />
-              ))}
+              <div className="container menu">
+                {foodItems.filter((foodData: any) => foodData.CategoryName === item.CategoryName).map((subItem: any) => (
+                  <Card key={subItem._id}
+                    title={subItem.name}
+                    description={subItem.description}
+                    options={subItem.options[0]}
+                    img={subItem.img} />
+                ))}
+              </div>
             </div>
           </>
         ))}
