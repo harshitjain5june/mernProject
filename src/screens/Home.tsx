@@ -41,9 +41,8 @@ function Home() {
       <div className='container'>
         {foodCategory?.map((item: any) => (
           <>
-            {console.log(item)}
-            <div className='fs-4 font-weight-bold' key={item._id}>{item.CategoryName}
-              <div className="container menu">
+            <div style={{marginTop: "15px"}} key={item._id}><h3 style={{paddingLeft:"12px", marginBottom:'0px'}}>{item.CategoryName}</h3>
+              <div className="menu">
                 {foodItems.filter((foodData: any) => foodData.CategoryName === item.CategoryName).map((subItem: any) => (
                   <Card key={subItem._id}
                     title={subItem.name}
@@ -56,7 +55,6 @@ function Home() {
           </>
         ))}
       </div>
-      <div></div>
       <div><Footer /></div>
     </>
 
