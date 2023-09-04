@@ -1,8 +1,8 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import SignUp from './signUp'
 import Login from './Login'
 import { useState } from 'react'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom'
 function Navbar() {
   const history = useNavigate();
@@ -25,6 +25,10 @@ function Navbar() {
     setShowSignUp(true);
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+  }
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -45,7 +49,9 @@ function Navbar() {
           <div className="d-flex align-items-center">
             {!localStorage.getItem("authToken") ? <><Link to={'/login'} className="btn bg-white fw-bold text-success mx-1" onClick={() => { setShowLogin(true) }}>Login</Link>
               <Link to={'/signup'} className="btn bg-white fw-bold text-success mx-1" onClick={() => { setShowSignUp(true) }}>SignUp</Link>
-            </> : <Link to={'/'} className="btn bg-white fw-bold text-success mx-1">Logout</Link>
+            </> : <><Link to={'/'} className="btn bg-white fw-bold text-success mx-1"><ShoppingCartIcon />My Cart</Link>
+              <Link to={'/'} onClick={handleLogout} className="btn bg-white fw-bold text-success mx-1">Logout</Link>
+            </>
             }
             {showSignUp && <SignUp onOpenLogin={handleShowLogin} onClose={handleCloseSignUp} />}
             {showLogin && <Login onOpenSignUp={handleShowSignup} onClose={handleCloseLogin} />}

@@ -25,7 +25,7 @@ function Card(props: CardProps) {
     }, [totalQuantity, quantity])
 
     return (
-        <div className="card m-3" style={{ "width": "18rem", "height": "28rem" }}>
+        <div className="card m-3" style={{ "width": "18rem", "height": "28rem", "backgroundColor": "#212529", borderColor: "#6c757d" }}>
             <img className="card-img-top" style={{"height": "13rem"}} src={props.img} alt="Card" />
             <div className="card-body">
                 <h5 className="card-title">{props.title}</h5>
