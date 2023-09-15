@@ -4,9 +4,10 @@ import Card from '../components/Card'
 import Footer from '../components/Footer'
 import Carousel from '../components/Carousel'
 import '../styles/home.css'
+import { useSelector } from 'react-redux'
 
 function Home() {
-
+  // const cartData = useSelector((state: any) => state.cartData)
   const [foodItems, setFoodItems] = useState<Array<Object>>([]);
   const [foodCategory, setFoodCategory] = useState<Array<Object>>([]);
 
@@ -41,14 +42,16 @@ function Home() {
       <div className='container'>
         {foodCategory?.map((item: any) => (
           <>
-            <div style={{marginTop: "15px"}} key={item._id}><h3 style={{paddingLeft:"12px", marginBottom:'0px'}}>{item.CategoryName}</h3>
+            <div style={{ marginTop: "15px" }} key={item._id}><h3 style={{ paddingLeft: "12px", marginBottom: '0px' }}>{item.CategoryName}</h3>
               <div className="menu">
-                {foodItems.filter((foodData: any) => foodData.CategoryName === item.CategoryName).map((subItem: any) => (
-                  <Card key={subItem._id}
-                    title={subItem.name}
-                    description={subItem.description}
+                {foodItems.filter((foodData: any) => foodData.CategoryName === item.CategoryName).map((subItem: any) =>
+                (<>
+                {console.log("this is our subitem", subItem)}
+                  <Card foodItem={subItem}
                     options={subItem.options[0]}
-                    img={subItem.img} />
+                  />
+                </>
+
                 ))}
               </div>
             </div>
