@@ -1,5 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
-import { CartDispatch, CartState } from './CartContext';
+import { useEffect, useState } from 'react'
 import { addToCart } from '../features/createSlice';
 import { useDispatch } from 'react-redux';
 type Option = {
@@ -13,9 +12,6 @@ type CardProps = {
 }
 
 function Card(props: CardProps) {
-    // const cartDispatch = useContext(CartDispatch)
-    // const cartState = useContext(CartState)
-    // console.log("this is our item data ", itemData)
     const [totalQuantity, setTotalQuantity] = useState(1);
     const [quantity, setQuantity] = useState(Object.values(props.options)[0]);
     const [size, setSize] = useState(Object.keys(props.options)[0])
