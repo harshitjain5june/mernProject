@@ -7,11 +7,14 @@ import { useNavigate } from 'react-router-dom'
 import Badge from 'react-bootstrap/Badge'
 import { useSelector } from 'react-redux'
 import { RootState } from '../app/store';
+import Modal from './Modal';
+import Cart from './Cart';
 function Navbar() {
   const history = useNavigate();
   const { cart } = useSelector((state: RootState) => state.cartData)
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [cartView, setCartView] = useState(false);
   const handleCloseLogin = () => {
     setShowLogin(false);
     history('/');
@@ -53,13 +56,14 @@ function Navbar() {
           <div className="d-flex align-items-center">
             {!localStorage.getItem("authToken") ? <><Link to={'/login'} className="btn bg-white fw-bold text-success mx-1" onClick={() => { setShowLogin(true) }}>Login</Link>
               <Link to={'/signup'} className="btn bg-white fw-bold text-success mx-1" onClick={() => { setShowSignUp(true) }}>SignUp</Link>
-            </> : <><Link to={'/cart'} className="btn bg-white fw-bold text-success mx-1"><ShoppingCartIcon />My Cart {"  "} <Badge pill bg="danger" >{cart.length}</Badge> </Link>
+            </> : <><Link to={'/'} onClick={()=>setCartView(true)} className="btn bg-white fw-bold text-success mx-1"><ShoppingCartIcon />My Cart {"  "} <Badge pill bg="danger" >{cart.length}</Badge> </Link>
               <Link to={'/'} onClick={handleLogout} className="btn bg-white fw-bold text-success mx-1">Logout</Link>
             </>
             }
             {showSignUp && <SignUp onOpenLogin={handleShowLogin} onClose={handleCloseSignUp} />}
             {showLogin && <Login onOpenSignUp={handleShowSignup} onClose={handleCloseLogin} />}
           </div>
+          {cartView? <Modal onClose={()=>setCartView(false)}><Cart /></Modal>: null }
         </div>
       </div>
     </nav>

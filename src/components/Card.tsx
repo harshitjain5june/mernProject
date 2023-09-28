@@ -13,9 +13,10 @@ type CardProps = {
 
 function Card(props: CardProps) {
     const [totalQuantity, setTotalQuantity] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [quantity, setQuantity] = useState(Object.values(props.options)[0]);
     const [size, setSize] = useState(Object.keys(props.options)[0])
-    const itemData = { "name": props.foodItem.name, "quantity": totalQuantity, "size": size }
+    const itemData = { "name": props.foodItem.name, "quantity": totalQuantity, "size": size, "price": totalPrice }
     const dispatch = useDispatch();
     const handleAddToCart = () => {
 
@@ -30,7 +31,7 @@ function Card(props: CardProps) {
     }
 
 
-    const [totalPrice, setTotalPrice] = useState(0);
+    
 
     useEffect(() => {
         let total = totalQuantity * quantity;

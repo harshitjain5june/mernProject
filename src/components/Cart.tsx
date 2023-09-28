@@ -6,7 +6,7 @@ function Cart() {
     const { cart } = useSelector((state: RootState) => state.cartData)
 
     return (
-        <div>
+        <div style={{ width: "90%", margin: 'auto' }}>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -18,6 +18,7 @@ function Cart() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
+
                         {
                             cart.map((item) => (
 
@@ -25,12 +26,15 @@ function Cart() {
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>{item.quantity}</TableCell>
                                     <TableCell>{item.size}</TableCell>
-                                    <TableCell>Price</TableCell>
+                                    <TableCell>{item.price}</TableCell>
                                 </TableRow>
 
                             ))
-                        }
 
+                        }
+                        <TableRow>
+                            <TableCell colSpan={3}>Grand Total</TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>
