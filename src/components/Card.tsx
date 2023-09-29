@@ -16,7 +16,7 @@ function Card(props: CardProps) {
     const [totalPrice, setTotalPrice] = useState(0);
     const [quantity, setQuantity] = useState(Object.values(props.options)[0]);
     const [size, setSize] = useState(Object.keys(props.options)[0])
-    const itemData = { "name": props.foodItem.name, "quantity": totalQuantity, "size": size, "price": totalPrice }
+    const itemData = { "id":props.foodItem._id, "name": props.foodItem.name, "quantity": totalQuantity, "size": size, "price": totalPrice  }
     const dispatch = useDispatch();
     const handleAddToCart = () => {
 
@@ -31,7 +31,7 @@ function Card(props: CardProps) {
     }
 
 
-    
+   
 
     useEffect(() => {
         let total = totalQuantity * quantity;
