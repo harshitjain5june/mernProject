@@ -63,6 +63,5 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
     }
 })
 
-export { router }
 
 module.exports = router

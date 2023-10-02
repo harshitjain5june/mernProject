@@ -1,6 +1,6 @@
 import { TableContainer, Table, TableHead, TableCell, TableBody, TableRow, Paper } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '../features/createSlice';
+import { removeFromCart, emptyCart } from '../features/createSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { RootState } from '../app/store';
 
@@ -20,6 +20,27 @@ function Cart() {
         dispatch(removeFromCart(payload))
     }
 
+    const handleCheckOut = async () => {
+
+        const response = await fetch('http://localhost:8090/api/orderData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: localStorage.getItem("email"),
+                order_data: cart,
+                order_date: new Date().toDateString()
+            })
+        });
+        console.log(response)
+        if (response.status === 200) {
+            dispatch(emptyCart())
+        }
+        else {
+            console.log("fucked up")
+        }
+    }
 
     return (
         <div style={{ width: "90%", margin: 'auto' }}>
@@ -59,7 +80,7 @@ function Cart() {
                     </TableBody>
                 </Table>
             </TableContainer>
-
+            <div><button onClick={() => handleCheckOut()}>Checkout</button></div>
         </div>
     )
 }

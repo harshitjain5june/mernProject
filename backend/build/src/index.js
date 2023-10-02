@@ -12,7 +12,7 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
 app.use((0, cors_1.default)({
-    origin: 'https://mern-project-pied.vercel.app',
+    origin: `${process.env.BASE_URL}`,
     methods: ['GET', 'POST', 'OPTIONS'],
     optionsSuccessStatus: 204
 }));
@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 app.use(express_1.default.json());
 app.use('/api', require('./routes/createUser'));
 app.use('/api', require('./routes/displayFoodItems'));
+app.use('/api', require('./routes/OrderData'));
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

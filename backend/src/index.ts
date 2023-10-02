@@ -24,6 +24,7 @@ app.use(express.json());
 
 app.use('/api', require('./routes/createUser'))
 app.use('/api', require('./routes/displayFoodItems'))
+app.use('/api', require('./routes/OrderData'))
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

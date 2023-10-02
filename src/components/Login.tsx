@@ -54,6 +54,7 @@ const Login: React.FC<LoginProps> = ({ onClose, onOpenSignUp }) => {
         if (response.status >= 200 && response.status < 400) {
             console.log("auth",json.authToken);
             localStorage.setItem("authToken", json.authToken)
+            localStorage.setItem("email", formData.email)
             setTimeout(() => {
                 onClose();
             }, 1000)
