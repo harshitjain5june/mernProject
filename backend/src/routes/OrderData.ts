@@ -3,7 +3,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.post('/orderData', async (req, res) => {
+router.post('/OrderData', async (req, res) => {
     let data = req.body.order_data
     await data.splice(0, 0, { Order_date: req.body.order_date })
 

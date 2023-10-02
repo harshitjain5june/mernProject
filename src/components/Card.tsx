@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { addToCart } from '../features/createSlice';
 import { useDispatch } from 'react-redux';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 type Option = {
     [item: string]: number;
 }
@@ -16,7 +18,7 @@ function Card(props: CardProps) {
     const [totalPrice, setTotalPrice] = useState(0);
     const [quantity, setQuantity] = useState(Object.values(props.options)[0]);
     const [size, setSize] = useState(Object.keys(props.options)[0])
-    const itemData = { "id":props.foodItem._id, "name": props.foodItem.name, "quantity": totalQuantity, "size": size, "price": totalPrice  }
+    const itemData = { "id": props.foodItem._id, "name": props.foodItem.name, "quantity": totalQuantity, "size": size, "price": totalPrice }
     const dispatch = useDispatch();
     const handleAddToCart = () => {
 
@@ -31,7 +33,7 @@ function Card(props: CardProps) {
     }
 
 
-   
+
 
     useEffect(() => {
         let total = totalQuantity * quantity;
@@ -53,7 +55,7 @@ function Card(props: CardProps) {
                             )
                         })}
                     </select>
-                    <select className='m-2 h-100' onChange={(e) => {setQuantity(props.options[e.target.value]); setSize(e.target.value)}} style={{ fontSize: "15px", borderRadius: "5px", padding: "3px" }}>
+                    <select className='m-2 h-100' onChange={(e) => { setQuantity(props.options[e.target.value]); setSize(e.target.value) }} style={{ fontSize: "15px", borderRadius: "5px", padding: "3px" }}>
                         {Object.keys(props.options).map((item: string) => (
                             <>
                                 <option key={item} value={item} >{item}</option>
@@ -66,7 +68,7 @@ function Card(props: CardProps) {
                         Total Price {totalPrice}
                     </div>
                     <div className="addToCart mt-2">
-                        <button onClick={handleAddToCart}>Add to cart</button>
+                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '5px' }} onClick={handleAddToCart}>Add to cart   <AddShoppingCartIcon style={{marginLeft:'5px', marginBottom:'2px'}} fontSize='small' /></button>
                     </div>
                 </div>
             </div>
