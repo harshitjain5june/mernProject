@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import Badge from 'react-bootstrap/Badge'
 import { useSelector } from 'react-redux'
 import { RootState } from '../app/store';
+import Orders from './Orders';
 import Modal from './Modal';
 import Cart from './Cart';
 function Navbar() {
@@ -15,6 +16,7 @@ function Navbar() {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [cartView, setCartView] = useState(false);
+  const [showOrders, setShowOrders] = useState(false);
   const handleCloseLogin = () => {
     setShowLogin(false);
     history('/');
@@ -34,11 +36,15 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("email");
   }
-  
+
+  const handleCloseOrders = () => {
+    setShowOrders(false);
+  }
   return (
-    <nav style={{backgroundColor: "#1F1B24"}} className="navbar navbar-expand-lg navbar-dark ">
-      <div  className="container-fluid">
+    <nav style={{ backgroundColor: "#1F1B24" }} className="navbar navbar-expand-lg navbar-dark ">
+      <div className="container-fluid">
         <Link to={'/'} className="navbar-brand fs-3 fst-italic">GoFood</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -50,20 +56,21 @@ function Navbar() {
             </li>
 
             {localStorage.getItem("authToken") ? <li className="nav-item">
-              <Link to={'/'} className="nav-link active fs-6 fw-bold" aria-current="page">My Orders</Link>
+              <Link to={'/'} onClick={() => setShowOrders(true)} className="nav-link active fs-6 fw-bold" aria-current="page">My Orders</Link>
             </li> : ""}
           </ul>
           <div className="d-flex align-items-center">
             {!localStorage.getItem("authToken") ? <><Link to={'/login'} className="btn bg-white fw-bold text-success mx-1" onClick={() => { setShowLogin(true) }}>Login</Link>
               <Link to={'/signup'} className="btn bg-white fw-bold text-success mx-1" onClick={() => { setShowSignUp(true) }}>SignUp</Link>
-            </> : <><Link to={'/'} onClick={()=>setCartView(true)} className="btn bg-white fw-bold text-success mx-1"><ShoppingCartIcon />My Cart {"  "} <Badge pill bg="danger" >{cart.length}</Badge> </Link>
+            </> : <><Link to={'/'} onClick={() => setCartView(true)} className="btn bg-white fw-bold text-success mx-1"><ShoppingCartIcon />My Cart {"  "} <Badge pill bg="danger" >{cart.length}</Badge> </Link>
               <Link to={'/'} onClick={handleLogout} className="btn bg-white fw-bold text-success mx-1">Logout</Link>
             </>
             }
             {showSignUp && <SignUp onOpenLogin={handleShowLogin} onClose={handleCloseSignUp} />}
             {showLogin && <Login onOpenSignUp={handleShowSignup} onClose={handleCloseLogin} />}
           </div>
-          {cartView? <Modal onClose={()=>setCartView(false)}><Cart /></Modal>: null }
+          {cartView ? <Modal onClose={() => setCartView(false)}><Cart /></Modal> : null}
+          {showOrders ? <Orders onClose={handleCloseOrders} /> : null}
         </div>
       </div>
     </nav>

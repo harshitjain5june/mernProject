@@ -89,7 +89,7 @@ function Cart() {
                         </Table>
                     </TableContainer>
                     <div className='mt-3' style={{ display: 'flex', justifyContent: 'center' }}>
-                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '9px', fontSize: 'large' }} onClick={() => handleCheckOut()}>Checkout <ShoppingCartCheckoutIcon style={{marginLeft:'7px', marginBottom:'2px'}} fontSize='small' /></button>
+                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '9px', fontSize: 'large', color:'white' }} onClick={() => handleCheckOut()}>Checkout <ShoppingCartCheckoutIcon style={{marginLeft:'7px', marginBottom:'2px'}} fontSize='small' /></button>
                     </div>
                 </>
             }

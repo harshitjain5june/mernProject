@@ -13,8 +13,9 @@ router.post('/OrderData', async (req, res) => {
         try {
             await orderSchema.create({
                 email: req.body.email,
-                order_data: data
-            }).then(() => {
+                order_data: []
+            }).then( async () => {
+                await orderSchema.findOneAndUpdate({ email: req.body.email }, { $push: { order_data: data } })
                 res.json({ success: true })
             })
         }
@@ -33,6 +34,11 @@ router.post('/OrderData', async (req, res) => {
         }
     }
 
+})
+
+router.post('/myOrderData', async (req, res)=>{
+    const myOrdersData = await orderSchema.findOne({'email': req.body.email})
+    res.json({orderData: myOrdersData})
 })
 
 module.exports = router

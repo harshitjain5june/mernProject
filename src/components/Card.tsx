@@ -68,7 +68,7 @@ function Card(props: CardProps) {
                         Total Price {totalPrice}
                     </div>
                     <div className="addToCart mt-2">
-                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '5px' }} onClick={handleAddToCart}>Add to cart   <AddShoppingCartIcon style={{marginLeft:'5px', marginBottom:'2px'}} fontSize='small' /></button>
+                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '5px', color:'white' }} onClick={handleAddToCart}>Add to cart   <AddShoppingCartIcon style={{marginLeft:'5px', marginBottom:'2px'}} fontSize='small' /></button>
                     </div>
                 </div>
             </div>
