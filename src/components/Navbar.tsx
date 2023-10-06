@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 import Badge from 'react-bootstrap/Badge'
 import { useSelector } from 'react-redux'
 import { RootState } from '../app/store';
-import Orders from './Orders';
 import Modal from './Modal';
 import Cart from './Cart';
 function Navbar() {
@@ -16,7 +15,6 @@ function Navbar() {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [cartView, setCartView] = useState(false);
-  const [showOrders, setShowOrders] = useState(false);
   const handleCloseLogin = () => {
     setShowLogin(false);
     history('/');
@@ -39,9 +37,7 @@ function Navbar() {
     localStorage.removeItem("email");
   }
 
-  const handleCloseOrders = () => {
-    setShowOrders(false);
-  }
+ 
   return (
     <nav style={{ backgroundColor: "#1F1B24" }} className="navbar navbar-expand-lg navbar-dark ">
       <div className="container-fluid">
@@ -56,7 +52,7 @@ function Navbar() {
             </li>
 
             {localStorage.getItem("authToken") ? <li className="nav-item">
-              <Link to={'/'} onClick={() => setShowOrders(true)} className="nav-link active fs-6 fw-bold" aria-current="page">My Orders</Link>
+              <Link to={'/myorders'} className="nav-link active fs-6 fw-bold" aria-current="page">My Orders</Link>
             </li> : ""}
           </ul>
           <div className="d-flex align-items-center">
@@ -70,7 +66,6 @@ function Navbar() {
             {showLogin && <Login onOpenSignUp={handleShowSignup} onClose={handleCloseLogin} />}
           </div>
           {cartView ? <Modal onClose={() => setCartView(false)}><Cart /></Modal> : null}
-          {showOrders ? <Orders onClose={handleCloseOrders} /> : null}
         </div>
       </div>
     </nav>

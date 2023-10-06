@@ -22,7 +22,6 @@ function Cart() {
     }
 
     const handleCheckOut = async () => {
-        console.log("call to hua h")
         try {
             const response = await fetch('http://localhost:8090/api/OrderData', {
                 method: 'POST',
@@ -40,7 +39,7 @@ function Cart() {
                 dispatch(emptyCart())
             }
             else {
-                console.log("fucked up")
+                console.log("error!!", response.status)
             }
         }
         catch (error) {

@@ -37,7 +37,6 @@ function Home() {
 
   return (
     <>
-      <div><Navbar /></div>
       <div><Carousel /></div>
       <div className='container'>
         {foodCategory?.map((item: any) => (
@@ -58,7 +57,6 @@ function Home() {
           </>
         ))}
       </div>
-      <div><Footer /></div>
     </>
 
   )
