@@ -26,25 +26,29 @@ type CardProps = {
 function Card(props: CardProps) {
     const [totalQuantity, setTotalQuantity] = useState(1);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [loginFirst, setLoginFirst] = useState(false);
     const [quantity, setQuantity] = useState(Object.values(props.options)[0]);
     const [size, setSize] = useState(Object.keys(props.options)[0])
     const itemData = { "id": props.foodItem._id, "name": props.foodItem.name, "quantity": totalQuantity, "size": size, "price": totalPrice }
     const dispatch = useDispatch();
     const handleAddToCart = () => {
-        setAddedToCart(true)
-        try {
-            dispatch(addToCart(itemData))
-            console.log("called try")
-        } catch (error) {
-            console.log(error)
+        if (localStorage.getItem('email')) {
+            setAddedToCart(true)
+            try {
+                dispatch(addToCart(itemData))
+            } catch (error) {
+                console.log(error)
+            }
         }
-        console.log("called")
-
+        else {
+            setLoginFirst(true);
+        }
     }
 
     const [addedToCart, setAddedToCart] = useState(false)
     const handleClose = () => {
         setAddedToCart(false)
+        setLoginFirst(false)
     }
 
 
@@ -87,6 +91,12 @@ function Card(props: CardProps) {
                         open={addedToCart} autoHideDuration={1000} onClose={handleClose} >
                         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                             Item added to Cart!
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                        open={loginFirst} autoHideDuration={1000} onClose={handleClose} >
+                        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                            You need to login first!
                         </Alert>
                     </Snackbar>
                 </div>
