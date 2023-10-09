@@ -4,6 +4,16 @@ import { removeFromCart, emptyCart } from '../features/createSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { RootState } from '../app/store';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import React, { useState } from 'react';
+import { Snackbar } from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 type deletePayload = {
     id: number
@@ -11,17 +21,21 @@ type deletePayload = {
 
 function Cart() {
     const { cart } = useSelector((state: RootState) => state.cartData)
+    const [orderPlaced, setOrderPlaced] = useState(false)
     const dispatch = useDispatch();
     let grandTotal = 0
     cart.map((item) => (
         grandTotal += item.price
     ))
-
+    const handleClose = () => {
+        setOrderPlaced(false)
+    }
     const handleDelete = (payload: deletePayload) => {
         dispatch(removeFromCart(payload))
     }
 
     const handleCheckOut = async () => {
+        setOrderPlaced(true);
         try {
             const response = await fetch('http://localhost:8090/api/OrderData', {
                 method: 'POST',
@@ -88,11 +102,16 @@ function Cart() {
                         </Table>
                     </TableContainer>
                     <div className='mt-3' style={{ display: 'flex', justifyContent: 'center' }}>
-                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '9px', fontSize: 'large', color:'white' }} onClick={() => handleCheckOut()}>Checkout <ShoppingCartCheckoutIcon style={{marginLeft:'7px', marginBottom:'2px'}} fontSize='small' /></button>
+                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '9px', fontSize: 'large', color: 'white' }} onClick={() => handleCheckOut()}>Checkout <ShoppingCartCheckoutIcon style={{ marginLeft: '7px', marginBottom: '2px' }} fontSize='small' /></button>
                     </div>
                 </>
             }
-
+            <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={orderPlaced} autoHideDuration={2000} onClose={handleClose} >
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Your Order has been placed!
+                </Alert>
+            </Snackbar>
         </div>
 
     )

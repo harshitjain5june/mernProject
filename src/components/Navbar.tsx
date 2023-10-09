@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../app/store';
 import Modal from './Modal';
 import Cart from './Cart';
+import '../styles/navbar.css'
 function Navbar() {
   const history = useNavigate();
   const { cart } = useSelector((state: RootState) => state.cartData)
@@ -37,7 +38,7 @@ function Navbar() {
     localStorage.removeItem("email");
   }
 
- 
+
   return (
     <nav style={{ backgroundColor: "#1F1B24" }} className="navbar navbar-expand-lg navbar-dark ">
       <div className="container-fluid">
@@ -48,11 +49,12 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link to={'/'} className="nav-link active fs-6 fw-bold" aria-current="page">Home</Link>
+              <Link to={'/'}
+                className="nav-link active fs-6 fw-bold nav-button" aria-current="page">Home</Link>
             </li>
 
             {localStorage.getItem("authToken") ? <li className="nav-item">
-              <Link to={'/myorders'} className="nav-link active fs-6 fw-bold" aria-current="page">My Orders</Link>
+              <Link to={'/myorders'} className="nav-link active fs-6 fw-bold nav-button" aria-current="page">My Orders</Link>
             </li> : ""}
           </ul>
           <div className="d-flex align-items-center">

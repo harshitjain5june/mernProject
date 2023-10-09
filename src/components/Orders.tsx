@@ -32,7 +32,7 @@ const Orders = () => {
     const [ordersData, setOrdersData] = useState<any>([])
     const fetchOrders = async () => {
         try {
-            const response = await fetch('http://localhost:8090/api/myOrderData', {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/myOrderData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ const Orders = () => {
     }, [])
 
     useEffect(() => {
-        console.log(ordersData)
+        setOrdersData(ordersData.reverse())
     }, [ordersData])
 
     const [expandedArray, setExpandedArray] = useState<boolean[]>([]);
@@ -62,7 +62,7 @@ const Orders = () => {
         // Initialize expandedArray with false for each card
         setExpandedArray(Array(ordersData.length).fill(false));
     }, [ordersData]);
-    
+
     const handleExpandClick = (index: number) => {
         // Toggle the expanded state for the clicked card
         const updatedExpandedArray = [...expandedArray];
@@ -70,10 +70,10 @@ const Orders = () => {
         setExpandedArray(updatedExpandedArray);
     };
 
-    const calculateGrandTotal = (item: any[]) =>{
+    const calculateGrandTotal = (item: any[]) => {
         let grandTotal = 0
-        item.map((subItem: any, index: number)=>{
-            if(index != 0){
+        item.map((subItem: any, index: number) => {
+            if (index != 0) {
                 grandTotal += subItem.price
             }
         })
@@ -82,14 +82,15 @@ const Orders = () => {
 
     return (
         <div style={{ padding: '10px', width: '50%' }}>
-            <h1>Order History: </h1>
             {
                 ordersData.length > 0 ? <div>
+                    <h1>Order History: </h1>
+
                     {ordersData.map((item: any[], index: number) => (
 
-                     
-                        <div>
-                            <Card sx={{ maxWidth: 500, marginBottom: "10px" }}>
+
+                        <div key={index}>
+                            <Card  sx={{ maxWidth: 500, marginBottom: "10px" }}>
                                 <CardHeader
                                     action={
                                         <IconButton aria-label="settings">
@@ -102,7 +103,7 @@ const Orders = () => {
                                 <CardContent>
                                     <Typography variant="body2" color="text.secondary">
                                         {item.map((subitem: any, index: number) => (
-                                            index !== 0 ? <><p><span style={{ padding: '4px', backgroundColor: '#00BA34', borderRadius: '5px' }}>{subitem.name}</span>  |  <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>Quantity:</span>  <span style={{ padding: '4px' }}>{subitem.quantity}</span>  |  <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>Size:</span> <span style={{ padding: '4px' }}>{subitem.size}</span>  |  <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>Price:</span> <span style={{ padding: '4px', backgroundColor: '#E92C2C', borderRadius: '5px' }}>{subitem.price}</span></p>
+                                            index !== 0 ? <><p key={index}><span style={{ padding: '4px', backgroundColor: '#00BA34', borderRadius: '5px' }}>{subitem.name}</span>  |  <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>Quantity:</span>  <span style={{ padding: '4px' }}>{subitem.quantity}</span>  |  <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>Size:</span> <span style={{ padding: '4px' }}>{subitem.size}</span>  |  <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>Price:</span> <span style={{ padding: '4px', backgroundColor: '#E92C2C', borderRadius: '5px' }}>{subitem.price}</span></p>
                                             </> : <></>
                                         )
                                         )}
@@ -116,24 +117,24 @@ const Orders = () => {
                                         <ShareIcon />
                                     </IconButton>
                                     <ExpandMore
-                                         expand={expandedArray[index]} // Use expanded state from the array
-                                         onClick={() => handleExpandClick(index)} // Pass the card index
-                                         aria-expanded={expandedArray[index]} // Use expanded state from the array
-                                         aria-label="show more"
+                                        expand={expandedArray[index]} // Use expanded state from the array
+                                        onClick={() => handleExpandClick(index)} // Pass the card index
+                                        aria-expanded={expandedArray[index]} // Use expanded state from the array
+                                        aria-label="show more"
                                     >
                                         <ExpandMoreIcon />
                                     </ExpandMore>
                                 </CardActions>
                                 <Collapse in={expandedArray[index]} timeout="auto" unmountOnExit>
                                     <CardContent>
-                                        GrandTotal: {calculateGrandTotal(item)}
+                                        GrandTotal: <span style={{ padding: '4px', backgroundColor: '#E92C2C', borderRadius: '5px' }}> {calculateGrandTotal(item)}</span>
                                     </CardContent>
                                 </Collapse>
                             </Card>
                         </div>
 
                     ))}
-                </div> : null
+                </div> : <h1> No order placed yet! </h1>
             }
         </div>
 

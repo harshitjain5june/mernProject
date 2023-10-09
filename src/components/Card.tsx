@@ -2,6 +2,16 @@ import { useEffect, useState } from 'react'
 import { addToCart } from '../features/createSlice';
 import { useDispatch } from 'react-redux';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import React from 'react';
+import Snackbar from '@mui/material/Snackbar';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 type Option = {
     [item: string]: number;
@@ -21,7 +31,7 @@ function Card(props: CardProps) {
     const itemData = { "id": props.foodItem._id, "name": props.foodItem.name, "quantity": totalQuantity, "size": size, "price": totalPrice }
     const dispatch = useDispatch();
     const handleAddToCart = () => {
-
+        setAddedToCart(true)
         try {
             dispatch(addToCart(itemData))
             console.log("called try")
@@ -32,7 +42,10 @@ function Card(props: CardProps) {
 
     }
 
-
+    const [addedToCart, setAddedToCart] = useState(false)
+    const handleClose = () => {
+        setAddedToCart(false)
+    }
 
 
     useEffect(() => {
@@ -68,8 +81,14 @@ function Card(props: CardProps) {
                         Total Price {totalPrice}
                     </div>
                     <div className="addToCart mt-2">
-                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '5px', color:'white' }} onClick={handleAddToCart}>Add to cart   <AddShoppingCartIcon style={{marginLeft:'5px', marginBottom:'2px'}} fontSize='small' /></button>
+                        <button style={{ backgroundColor: '#1F1B24', padding: '5px', borderRadius: '5px', color: 'white' }} onClick={handleAddToCart}>Add to cart   <AddShoppingCartIcon style={{ marginLeft: '5px', marginBottom: '2px' }} fontSize='small' /></button>
                     </div>
+                    <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                        open={addedToCart} autoHideDuration={1000} onClose={handleClose} >
+                        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                            Item added to Cart!
+                        </Alert>
+                    </Snackbar>
                 </div>
             </div>
         </div>
