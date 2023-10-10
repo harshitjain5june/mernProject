@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv';
 
 dotenv.config();
-const mongoURI = `mongodb+srv://harshitjain5june:${process.env.password}@cluster0.nnwus63.mongodb.net/goFood?retryWrites=true&w=majority`
+const mongoURI = `mongodb+srv://harshitjain5june:${process.env.PASSWORD}@cluster0.nnwus63.mongodb.net/goFood?retryWrites=true&w=majority`
 
 declare const global: {
     food_items: Object[];
