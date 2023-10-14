@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const mongoURI = `mongodb+srv://harshitjain5june:${process.env.password}@cluster0.nnwus63.mongodb.net/goFood?retryWrites=true&w=majority`;
+const mongoURI = `mongodb+srv://harshitjain5june:${process.env.PASSWORD}@cluster0.nnwus63.mongodb.net/goFood?retryWrites=true&w=majority`;
 const mongoDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(mongoURI);

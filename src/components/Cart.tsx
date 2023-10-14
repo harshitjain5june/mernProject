@@ -37,7 +37,7 @@ function Cart() {
     const handleCheckOut = async () => {
         setOrderPlaced(true);
         try {
-            const response = await fetch('http://localhost:8090/api/OrderData', {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/OrderData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-alpine
 
 # Working dir
 WORKDIR /usr/src/app
@@ -15,11 +15,12 @@ COPY . .
 # Build
 RUN npm run build
 
-# Expose the API port
-EXPOSE 8090
+# Install serve
+RUN npm install -g serve
+
+# Expose the port
+EXPOSE 3000
 
 # Run the application
-CMD [ "node", "build/src/index.js" ]
-
-
+CMD ["serve", "-s", "build"]
 
