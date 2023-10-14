@@ -1,0 +1,13 @@
+version: '3'
+services:
+  reactfrontend:
+    image: gofood-frontend:localV1
+    ports:
+      - "3000:3000"   
+    depends_on:
+      - nodebackend
+  nodebackend:
+    image: harshit1019/gofood-backend:v2
+    ports:
+      - "8090:8090"   
+    

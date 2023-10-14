@@ -8,9 +8,9 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
-
+const allowedOrigins = [`${process.env.BASE_URL_STAGE}`, `${process.env.BASE_URL_LOCAL}`]
 app.use(cors({
-  origin: `${process.env.BASE_URL}`, // Allow requests from this origin
+  origin: allowedOrigins, // Allow requests from this origin
   methods: ['GET', 'POST', 'OPTIONS'], // Specify allowed methods
   optionsSuccessStatus: 204
 }));
