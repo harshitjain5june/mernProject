@@ -29,7 +29,8 @@ stages:
           $(tag)
 
     - task: Docker@2
+      displayName: Push the Image
       inputs:
         containerRegistry: 'DockerHub'
-        repository: 'gofood-frontend'
+        repository: 'harshit1019/gofood-frontend'
         command: 'push'
