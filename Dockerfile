@@ -1,4 +1,5 @@
-FROM --platform=linux/amd64 node:18
+#Build Environment
+FROM --platform=linux/amd64 node:18 as build
 
 # Working dir
 WORKDIR /usr/src/app
@@ -15,12 +16,15 @@ COPY . .
 # Build
 RUN npm run build
 
-# Install serve
-RUN npm install -g serve
+# Production Environment
+FROM nginx:1.25.2-alpine
 
-# Expose the port
-EXPOSE 3000
+# Copy Build
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
-# Run the application
-CMD ["serve", "-s", "build"]
+# Expose 80 port
+EXPOSE 80
+
+# Run Nginx as foreground process in container
+CMD ["nginx", "-g", "daemon off;"]
 
