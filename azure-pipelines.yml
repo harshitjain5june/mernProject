@@ -12,8 +12,24 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: Build & Push React image
+  displayName: Build & Push React image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'harshit1019/gofood-frontend'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
+
+- stage: Build & Push Nodejs image
+  displayName: Build & Push Nodejs image
   jobs:
   - job: Build
     displayName: Build
