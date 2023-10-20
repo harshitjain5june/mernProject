@@ -35,7 +35,7 @@ stages:
         containerRegistry: 'DockerHub'
         repository: 'harshit1019/gofood-backend'
         command: 'buildAndPush'
-        Dockerfile: '/backend/**Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
         tags: '$(tag)'
 
     
