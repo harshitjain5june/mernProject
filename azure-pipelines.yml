@@ -12,7 +12,7 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build & Push React image
+- stage: BuildPush_React_image
   displayName: Build & Push React image
   jobs:
   - job: Build
@@ -28,7 +28,7 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
 
-- stage: Build & Push Nodejs image
+- stage: BuildPush_Nodejs_image
   displayName: Build & Push Nodejs image
   jobs:
   - job: Build
