@@ -21,15 +21,6 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build&Push_React_Image
-      inputs:
-        containerRegistry: 'DockerHub'
-        repository: 'harshit1019/gofood-frontend'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
-
-    - task: Docker@2
       displayName: Build&Push_Nodejs_Image
       inputs:
         containerRegistry: 'DockerHub'
