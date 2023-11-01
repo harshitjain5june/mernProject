@@ -12,7 +12,7 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: BuildPush_React_image
+- stage: Docker
   displayName: Build & Push Docker Images
   jobs:
   - job: Build
@@ -29,4 +29,16 @@ stages:
         Dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
         tags: '$(tag)'
 
-    
+- stage: Deploy Backend
+  displayName: Deploy backend to WebApp
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: AzureWebAppContainer@1
+      inputs:
+        azureSubscription: 'goFood-service'
+        appName: 'backendMern'
+        containers: 'harshit1019/gofood-backend:$(tag)'
