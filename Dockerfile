@@ -2,7 +2,7 @@
 FROM --platform=linux/amd64 node:18 as build
 
 # Working dir
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app 
 
 # Copy package json files
 COPY package*.json ./
