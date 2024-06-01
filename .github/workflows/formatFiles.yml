@@ -1,0 +1,23 @@
+name: Formatting Files
+
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+
+
+permissions:
+    contents: write
+    pull-requests: write
+    repository-projects: write
+    checks: write
+
+jobs:
+    call-prettier-workflow:
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/formatCode')  }} 
+        uses: harshitjain5june/reusable-workflows/.github/workflows/prettier.yml@master
+        with: 
+          repo: harshitjain5june/mernProject
+          issue: ${{ github.event.issue.number }}
+        secrets:
+          token: ${{ secrets.GITHUB_TOKEN }}
+  
