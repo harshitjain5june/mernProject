@@ -1,8 +1,8 @@
-#carousel{
-    max-height: 500px;
+#carousel {
+  max-height: 500px;
 }
-.carousel-img{
-    width: 100%;
-    height: 750px;
-    filter: brightness(30%);
+.carousel-img {
+  width: 100%;
+  height: 750px;
+  filter: brightness(30%);
 }

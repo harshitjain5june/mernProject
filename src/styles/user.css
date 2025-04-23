@@ -1,18 +1,18 @@
 .dialog-user-details {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .userForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    font-size: medium;
-    font-weight: 600;
-    color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: medium;
+  font-weight: 600;
+  color: white;
 }
 
 .userForm input {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
